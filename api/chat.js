@@ -102,7 +102,7 @@ Pilares:
 - Posición frente a la familia: la familia es el núcleo de la sociedad, apoyo a la maternidad
 - Plan de gobierno a implementar desde marzo de 2026`;
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
