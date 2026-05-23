@@ -1,0 +1,16 @@
+{
+  "name": "kast-asistente-candidato",
+  "version": "1.0.0",
+  "description": "Asistente de campaña con IA para José Antonio Kast — Aidtogrow",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "devDependencies": {
+    "vercel": "^37.0.0"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
+}

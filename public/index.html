@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asistente de Campaña — José Antonio Kast</title>
+  <meta name="description" content="Asistente de IA para conocer el programa y propuestas de José Antonio Kast, candidato presidencial de Chile 2025." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #CC1818;
+      --red-dark: #aa1010;
+      --red-light: #fbeaea;
+      --blue: #1A3A6B;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-400: #9ca3af;
+      --gray-600: #4b5563;
+      --gray-900: #111827;
+      --white: #ffffff;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--gray-50);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+    }
+
+    /* ── Header ── */
+    header {
+      width: 100%;
+      background: var(--red);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .header-left { display: flex; align-items: center; gap: 12px; }
+    .logo-circle {
+      width: 40px; height: 40px;
+      background: var(--white);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 18px; color: var(--red);
+      flex-shrink: 0;
+    }
+    .header-title { color: var(--white); }
+    .header-title h1 { font-size: 16px; font-weight: 600; line-height: 1.2; }
+    .header-title p { font-size: 12px; opacity: 0.85; margin-top: 1px; }
+    .header-badge {
+      font-size: 11px;
+      background: rgba(255,255,255,0.2);
+      color: var(--white);
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    /* ── Main layout ── */
+    main {
+      width: 100%;
+      max-width: 760px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 0 16px 100px;
+    }
+
+    /* ── Welcome ── */
+    #welcome {
+      text-align: center;
+      padding: 48px 24px 32px;
+    }
+    #welcome .big-k {
+      width: 72px; height: 72px;
+      background: var(--red);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px; font-weight: 700; color: var(--white);
+      margin: 0 auto 20px;
+    }
+    #welcome h2 { font-size: 22px; font-weight: 600; color: var(--gray-900); margin-bottom: 8px; }
+    #welcome p { font-size: 15px; color: var(--gray-600); max-width: 480px; margin: 0 auto 28px; line-height: 1.6; }
+
+    .suggestions {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .sug {
+      font-size: 13px;
+      padding: 8px 14px;
+      border: 1px solid var(--gray-200);
+      border-radius: 20px;
+      background: var(--white);
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+    .sug:hover { border-color: var(--red); color: var(--red); background: var(--red-light); }
+
+    /* ── Messages ── */
+    #messages {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-top: 8px;
+    }
+
+    .msg { display: flex; gap: 10px; align-items: flex-start; }
+    .msg.user { flex-direction: row-reverse; }
+
+    .av {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 600;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .msg.bot .av { background: var(--red); color: var(--white); }
+    .msg.user .av { background: var(--gray-200); color: var(--gray-600); border: 1px solid var(--gray-300); }
+
+    .bubble {
+      max-width: 82%;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--gray-900);
+    }
+    .msg.bot .bubble {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .msg.user .bubble {
+      background: var(--red);
+      color: var(--white);
+      border-bottom-right-radius: 4px;
+    }
+    .bubble strong { font-weight: 600; }
+    .bubble ul { padding-left: 18px; margin: 6px 0; }
+    .bubble li { margin-bottom: 4px; }
+
+    /* Typing indicator */
+    .typing-wrap { display: flex; gap: 10px; align-items: center; }
+    .typing {
+      padding: 14px 18px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-md);
+      border-bottom-left-radius: 4px;
+      display: flex; gap: 5px; align-items: center;
+    }
+    .dot {
+      width: 7px; height: 7px;
+      background: var(--gray-400);
+      border-radius: 50%;
+      animation: bounce 1.2s infinite;
+    }
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-6px); }
+    }
+
+    /* ── Input bar (fixed) ── */
+    #input-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0; right: 0;
+      background: var(--white);
+      border-top: 1px solid var(--gray-200);
+      padding: 12px 16px 16px;
+      display: flex;
+      justify-content: center;
+    }
+    .input-inner {
+      width: 100%;
+      max-width: 728px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+    #user-input {
+      flex: 1;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 10px 16px;
+      font-size: 14px;
+      font-family: inherit;
+      resize: none;
+      min-height: 44px;
+      max-height: 120px;
+      background: var(--gray-50);
+      color: var(--gray-900);
+      line-height: 1.5;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    #user-input:focus { border-color: var(--red); background: var(--white); }
+    #user-input::placeholder { color: var(--gray-400); }
+
+    #send-btn {
+      width: 44px; height: 44px;
+      background: var(--red);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.15s, transform 0.1s;
+    }
+    #send-btn:hover { background: var(--red-dark); }
+    #send-btn:active { transform: scale(0.95); }
+    #send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    /* ── Footer credits ── */
+    footer {
+      text-align: center;
+      padding: 8px;
+      font-size: 11px;
+      color: var(--gray-400);
+      padding-bottom: 24px;
+    }
+    footer a { color: var(--gray-400); text-decoration: none; }
+    footer a:hover { color: var(--red); }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .bubble { max-width: 90%; font-size: 13px; }
+      #welcome h2 { font-size: 18px; }
+      .header-badge { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <div class="logo-circle">K</div>
+    <div class="header-title">
+      <h1>Asistente de campaña</h1>
+      <p>José Antonio Kast · La Fuerza del Cambio</p>
+    </div>
+  </div>
+  <div class="header-badge">Powered by IA</div>
+</header>
+
+<main>
+  <div id="welcome">
+    <div class="big-k">K</div>
+    <h2>¿Qué quieres saber sobre el programa?</h2>
+    <p>Consulta sobre las propuestas, posiciones y plan de gobierno de José Antonio Kast para las elecciones presidenciales de Chile 2025.</p>
+    <div class="suggestions">
+      <button class="sug" onclick="askSuggestion('¿Cuáles son los 3 ejes principales del programa de Kast?')">📋 3 ejes del programa</button>
+      <button class="sug" onclick="askSuggestion('¿Qué propone Kast en materia de seguridad?')">🛡️ Seguridad</button>
+      <button class="sug" onclick="askSuggestion('¿Cuál es el plan económico de Kast?')">📈 Plan económico</button>
+      <button class="sug" onclick="askSuggestion('¿Qué propone en educación y salud?')">🏥 Educación y salud</button>
+      <button class="sug" onclick="askSuggestion('¿Cuál es la posición de Kast frente a la inmigración ilegal?')">🌐 Inmigración</button>
+      <button class="sug" onclick="askSuggestion('¿Qué propone Kast para la vivienda y la casa propia?')">🏠 Vivienda</button>
+    </div>
+  </div>
+
+  <div id="messages"></div>
+  <footer>Desarrollado por <a href="https://www.aidtogrow.com/es/" target="_blank">Aidtogrow</a> · Asistente de IA con Claude (Anthropic)</footer>
+</main>
+
+<div id="input-bar">
+  <div class="input-inner">
+    <textarea
+      id="user-input"
+      placeholder="Escribe tu pregunta aquí..."
+      rows="1"
+      onkeydown="handleKey(event)"
+    ></textarea>
+    <button id="send-btn" onclick="sendMessage()" aria-label="Enviar mensaje">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"/>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  let history = [];
+  let isLoading = false;
+
+  const messagesEl = document.getElementById('messages');
+  const welcomeEl  = document.getElementById('welcome');
+  const inputEl    = document.getElementById('user-input');
+  const sendBtn    = document.getElementById('send-btn');
+
+  function scrollBottom() {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }
+
+  function formatText(text) {
+    return text
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/\n- /g, '<br>• ')
+      .replace(/\n(\d+)\. /g, '<br>$1. ')
+      .replace(/\n/g, '<br>');
+  }
+
+  function addMsg(role, text) {
+    const d  = document.createElement('div');
+    d.className = 'msg ' + (role === 'user' ? 'user' : 'bot');
+
+    const av = document.createElement('div');
+    av.className = 'av';
+    av.textContent = role === 'user' ? 'Tú' : 'K';
+
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    bubble.innerHTML = formatText(text);
+
+    d.appendChild(av);
+    d.appendChild(bubble);
+    messagesEl.appendChild(d);
+    scrollBottom();
+    return bubble;
+  }
+
+  function showTyping() {
+    const d = document.createElement('div');
+    d.className = 'msg bot';
+    d.id = 'typing-row';
+
+    const av = document.createElement('div');
+    av.className = 'av';
+    av.textContent = 'K';
+
+    const t = document.createElement('div');
+    t.className = 'typing';
+    t.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+
+    d.appendChild(av);
+    d.appendChild(t);
+    messagesEl.appendChild(d);
+    scrollBottom();
+  }
+
+  function removeTyping() {
+    const t = document.getElementById('typing-row');
+    if (t) t.remove();
+  }
+
+  async function sendMessage(text) {
+    const msg = (text || inputEl.value).trim();
+    if (!msg || isLoading) return;
+
+    // Hide welcome on first message
+    welcomeEl.style.display = 'none';
+
+    inputEl.value = '';
+    inputEl.style.height = 'auto';
+    isLoading = true;
+    sendBtn.disabled = true;
+
+    addMsg('user', msg);
+    history.push({ role: 'user', content: msg });
+    showTyping();
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history }),
+      });
+
+      const data = await res.json();
+      removeTyping();
+
+      if (!res.ok) {
+        addMsg('bot', `⚠️ Error: ${data.error || 'No se pudo procesar la consulta. Intenta de nuevo.'}`);
+      } else {
+        const reply = data.reply;
+        addMsg('bot', reply);
+        history.push({ role: 'assistant', content: reply });
+      }
+    } catch (e) {
+      removeTyping();
+      addMsg('bot', '⚠️ Error de conexión. Por favor verifica tu internet e intenta de nuevo.');
+    }
+
+    isLoading = false;
+    sendBtn.disabled = false;
+    inputEl.focus();
+  }
+
+  function askSuggestion(q) { sendMessage(q); }
+
+  function handleKey(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  }
+
+  inputEl.addEventListener('input', function () {
+    this.style.height = 'auto';
+    this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+  });
+</script>
+
+</body>
+</html>
