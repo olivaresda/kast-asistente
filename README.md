@@ -2,7 +2,7 @@
 
 Asistente conversacional basado en **Claude (Anthropic)** que permite a ciudadanos, periodistas y equipos de campaña consultar sobre el programa de gobierno, propuestas y posiciones de José Antonio Kast.
 
-Desarrollado por **[Aidtogrow](https://www.aidtogrow.com/es/)** como demostración del servicio de asistentes IA para candidatos políticos en América Latina.
+Desarrollado por **[Aidtogrow](https://www.aidtogrow.com/es/)** Daniel Olivares como demostración del servicio de asistentes IA para candidatos políticos en América Latina.
 
 ---
 
