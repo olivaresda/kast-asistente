@@ -8,8 +8,7 @@ Desarrollado por **[Aidtogrow](https://www.aidtogrow.com/es/)** Daniel Olivares 
 
 ## 🖥️ Demo en vivo
 
-> Agrega el link de tu deploy aquí después de publicar en Vercel
-
+> Demo https://kast-asistente.vercel.app/
 ---
 
 ## 🏗️ Arquitectura
@@ -53,7 +52,7 @@ kast-asistente/
 ### Prerequisitos
 - Cuenta en [GitHub](https://github.com)
 - Cuenta en [Vercel](https://vercel.com) (gratis)
-- API Key de [Anthropic Console](https://console.anthropic.com)
+- API Key de [Anthropic Console](https://console.anthropic.com)   con 1 dolar son casi 500 interacciones 
 
 ### 1. Sube el proyecto a GitHub
 
@@ -120,6 +119,7 @@ Todo el conocimiento del candidato vive en el **system prompt** al inicio de `/a
 1. Reemplaza el contenido de la variable `SYSTEM` en `api/chat.js`
 2. Actualiza el nombre y los colores en `public/index.html`
 3. Modifica las preguntas sugeridas en el `<div class="suggestions">`
+4. si tienes dudas puedes contactarme  dolivaresm@fen.uchile.cl
 
 ### Cambiar colores
 
@@ -135,7 +135,7 @@ En `public/index.html`, edita las variables CSS en `:root`:
 
 ### Agregar más contexto
 
-Para documentos más largos (programa completo, declaraciones, entrevistas), considera implementar **RAG** (Retrieval Augmented Generation):
+Para documentos más largos (programa completo, declaraciones, entrevistas), considera implementar **RAG** (Retrieval Augmented Generation), sugerencias metodologicas:
 1. Divide el documento en chunks de ~500 palabras
 2. Almacena embeddings en una base vectorial (Supabase pgvector, Pinecone)
 3. Antes de llamar a Claude, busca los chunks más relevantes a la pregunta
@@ -154,7 +154,7 @@ Para documentos más largos (programa completo, declaraciones, entrevistas), con
 
 ## 📊 Analíticas opcionales (con Supabase)
 
-Para registrar las preguntas y analizar qué consulta la gente, agrega esto en `api/chat.js`:
+Para registrar las preguntas y analizar qué consulta la gente, agrega esto en `api/chat.js`, no esta agregado ya que el ejemplo no consistia en montar una bbdd:
 
 ```js
 import { createClient } from '@supabase/supabase-js';
@@ -176,7 +176,7 @@ await supabase.from('conversaciones').insert({
 |------|-----------|
 | Frontend | HTML5 + CSS3 + JavaScript vanilla |
 | Backend | Node.js (Vercel Serverless) |
-| IA | Claude Sonnet 4 (Anthropic) |
+| IA | Claude Sonnet 4 (Anthropic) | Gemini | Clases de Daniel Olivares M
 | Hosting | Vercel |
 | Fuente tipográfica | Google Fonts (Inter) |
 
@@ -187,7 +187,7 @@ await supabase.from('conversaciones').insert({
 Este proyecto es una demostración del servicio **Asistente de Candidato IA** de [Aidtogrow SPA](https://www.aidtogrow.com/es/), empresa chilena especializada en agentes conversacionales para América Latina.
 
 **¿Quieres un asistente similar para tu candidato o campaña?**
-Contáctanos en [aidtogrow.com](https://www.aidtogrow.com/es/)
+Contáctanos en [aidtogrow.com](https://www.aidtogrow.com/es/) . comercial@aidtogrow.com
 
 ---
 
